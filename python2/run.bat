@@ -5,7 +5,7 @@ REM You don't actually need this script!
 SET RUN_KOANS=python.exe contemplate_koans.py
 
 REM Set this to your python folder:
-SET PYTHON_PATH=C:\Python27
+SET PYTHON_PATH=D:\dev\bin\Anaconda
 
 set SCRIPT=
 REM Hunt around for python
