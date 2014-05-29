@@ -35,11 +35,41 @@ from runner.koan import *
 
 def score(dice):
 
-    # You need to write this method
-    pass
+    points = dict()
+
+    # Build histogram
+    for roll in dice :
+        if not (roll in points) :
+            points[roll]=1
+        else :
+            points[roll]+= 1
+
+    total = 0
+
+    # Do three pointers first
+    for roll in range(1,7) :
+        if (roll in points) and (points[roll] >= 3) :
+            if roll == 1 :
+                total += roll *  1000
+            else :
+                total += roll * 100
+
+            points[roll] -= 3
+
+    # Now do 1 and 5
+    if (1 in points) :
+        total += points[1]*100
+
+    if (5 in points) :
+        total += points[5]*50
+
+    #print "Points: %d" % total
+
+    return total
 
 
 class AboutScoringProject(Koan):
+
     def test_score_of_an_empty_list_is_zero(self):
         self.assertEqual(0, score([]))
 
