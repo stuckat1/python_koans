@@ -22,12 +22,58 @@ from runner.koan import *
 class Proxy(object):
     def __init__(self, target_object):
         # WRITE CODE HERE
-
+        self.msgs = []
+        self.power_on = False
         #initialize '_obj' attribute last. Trust me on this!
         self._obj = target_object
 
     # WRITE CODE HERE
 
+    def power(self):
+        self._obj.power()
+        self.msgs.append('power')
+
+    def is_on(self):
+        return self._obj.is_on()
+
+
+    @property
+    def channel(self):
+        self.msgs.append('channel')
+        return self._obj.channel
+
+    @channel.setter
+    def channel(self, value):
+        self.msgs.append('channel')
+        self._obj.channel = value
+
+    def messages(self):
+        return self.msgs
+
+    def was_called(self, mode):
+        x = set(self.msgs)
+        return mode in x
+
+    def number_of_times_called(self, mode):
+        d = dict()
+
+        for i in self.msgs :
+            if i in d :
+                d[i] += 1
+            else :
+                d[i] = 1
+
+        if not (mode in d):
+            return 0
+        return d[mode]
+
+    def upper(self):
+        self.msgs.append('upper')
+        return self._obj.upper()
+
+    def split(self):
+        self.msgs.append('split')
+        return self._obj.split(' ')
 
 # The proxy object should pass the following Koan:
 #
@@ -90,7 +136,6 @@ class AboutProxyObjectProject(Koan):
         proxy = Proxy("Py Ohio 2010")
 
         result = proxy.upper()
-
         self.assertEqual("PY OHIO 2010", result)
 
         result = proxy.split()
