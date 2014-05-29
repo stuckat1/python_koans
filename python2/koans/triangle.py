@@ -18,11 +18,25 @@
 #   about_triangle_project_2.py
 #
 def triangle(a, b, c):
-    # DELETE 'PASS' AND WRITE THIS CODE
-    if a == b and b == c :
+
+
+    sides = set([a,b,c])
+
+    ss = sorted(sides)
+
+    for side in ss :
+        if side <= 0 :
+            raise TriangleError
+
+    ss = sorted([a,b,c])
+    if (ss[0] + ss[1] < ss[2] or ss[0] > ss[1] + ss[2]) :
+        raise TriangleError
+
+    if len(sides) == 1 :
         return 'equilateral'
 
-    if a == b or b == c or a == c:
+    elif len(sides) == 2 :
+
         return 'isosceles'
 
     return 'scalene'
